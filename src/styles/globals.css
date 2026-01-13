@@ -4,6 +4,10 @@
   --color-primary: #0F172A;
   --color-secondary: #9333EA;
   --color-white-5: rgba(255, 255, 255, 0.05);
+  --color-bluegray-200: #E2E8F0;
+  --color-bluegray-300: #CBD5E1;
+  --color-bluegray-400: #94A3B8;
+
 
   --font-sans: "Roboto", sans-serif;
   --text-3xl: 2rem; /* 32px */ 
@@ -14,7 +18,9 @@
   --spacing-24: 1.5rem; /* 24px */
   --spacing-28: 1.75rem; /* 28px */
   --spacing-38: 2.375rem; /* 38px */
+  --spacing-48: 3rem; /* 48px */
   --spacing-80: 5rem; /* 80px */
+  --spacing-1048: 65rem; /* 1048px */
 
   --border-radius-xl: 1.25rem; /* 20px */
 
@@ -23,14 +29,37 @@
     0 25px 50px -12px rgba(0, 0, 0, 0.25);
 }
 
+@layer base {
+  :focus-visible {
+    outline: 2px solid var(--color-secondary);
+    outline-offset: 2px;
+  }
+}
+
 body {
   @apply bg-primary text-white font-sans;
 }
 
+a {
+    @apply rounded-sm;
+}
+
+.hover_secondary {
+    @apply hover:text-secondary transition;
+}
+
+.brand {
+    @apply text-3xl font-bold transition-transform duration-200 hover:scale-110;
+}
+
 .navlink {
-    @apply px-8 py-12 hover:text-secondary transition;
+    @apply px-8 py-12 rounded-xl;
 }
 
 .secondary_button {
-    @apply bg-secondary text-white rounded-lg hover:bg-secondary/70 transition;
+    @apply bg-secondary text-white rounded-lg hover:bg-secondary/70 transition ;
+}
+
+.footer_social_icon {
+    @apply text-2xl transition-transform duration-200 hover:scale-120 hover:text-secondary;
 }
