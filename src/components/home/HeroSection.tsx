@@ -3,7 +3,7 @@ import desktopImage from "../../assets/Desktop.svg";
 
 export default function HeroSection() {
   return (
-    <section className="w-full p-80 flex flex-col gap-80 items-center justify-center">
+    <section className="flex flex-col gap-80 items-center justify-center">
         <div className="flex flex-col gap-32 items-center text-center">
             <h1 className="text-7xl font-extrabold">
                 Explorez le <span className="text-lilac font-light">Web</span> sous toutes ses <span className="underline decoration-lilac">facettes</span>

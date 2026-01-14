@@ -1,6 +1,6 @@
 import Navbar from "../components/Navbar"
 import Footer from "../components/footer/Footer"
-import { HeroSection } from "../components/home"
+import { HeroSection, TrustSection } from "../components/home"
 
 export default function Home() {
   return (
@@ -8,6 +8,7 @@ export default function Home() {
         <Navbar />
         <main className="flex flex-col gap-80">
             <HeroSection />
+            <TrustSection />
         </main>
         <Footer />
     </div>
