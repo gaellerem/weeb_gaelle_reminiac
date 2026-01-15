@@ -12,7 +12,7 @@ export default function Navbar() {
                     </div>
                 </div>
                 <div className="flex items-center gap-16">
-                    <Link to="/" className="navlink hover_secondary"><span className="px-16">Se Connecter</span></Link>
+                    <Link to="/login" className="navlink hover_secondary"><span className="px-16">Se Connecter</span></Link>
                     <Link to="/" className="secondary_button py-12 px-28">Rejoignez-nous</Link>
                 </div>
             </div>
