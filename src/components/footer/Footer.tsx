@@ -16,11 +16,11 @@ export default function Footer() {
         <div className="flex gap-48 items-center py-48">
             <span className="w-full">@ 2025 Weeb, Inc. All rights reserved.</span>
             <div className="flex gap-16">
-                <a href="#" className="footer_social_icon"><i className="jam jam-youtube" /></a>
-                <a href="#" className="footer_social_icon"><i className="jam jam-facebook" /></a>
-                <a href="#" className="footer_social_icon"><i className="jam jam-twitter" /></a>
-                <a href="#" className="footer_social_icon"><i className="jam jam-instagram" /></a>
-                <a href="#" className="footer_social_icon"><i className="jam jam-linkedin" /></a>
+                <a href="#" className="jam_icon"><i className="jam jam-youtube" /></a>
+                <a href="#" className="jam_icon"><i className="jam jam-facebook" /></a>
+                <a href="#" className="jam_icon"><i className="jam jam-twitter" /></a>
+                <a href="#" className="jam_icon"><i className="jam jam-instagram" /></a>
+                <a href="#" className="jam_icon"><i className="jam jam-linkedin" /></a>
             </div>
         </div>
     </footer>

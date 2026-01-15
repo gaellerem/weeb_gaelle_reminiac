@@ -6,9 +6,9 @@ export default function HeroSection() {
     <section className="flex flex-col gap-80 items-center justify-center">
         <div className="flex flex-col gap-32 items-center text-center">
             <h1 className="text-7xl font-extrabold">
-                Explorez le <span className="text-lilac font-light">Web</span> sous toutes ses <span className="underline decoration-lilac">facettes</span>
+                Explorez le <span className="text-tertiary font-light">Web</span> sous toutes ses <span className="underline decoration-tertiary">facettes</span>
             </h1>
-            <p className="max-w-208.5 text-lg">
+            <p className="max-w-162 text-lg leading-[1.6]">
                 Le monde du web évolue constamment, et nous sommes là pour vous guider à travers ses tendances,
                 technologies et meilleures pratiques. Que vous soyez développeur, designer ou passionné du digital,
                 notre blog vous offre du contenu de qualité pour rester à la pointe.
