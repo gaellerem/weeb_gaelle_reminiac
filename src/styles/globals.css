@@ -1,0 +1,82 @@
+@import "tailwindcss";
+
+@theme {
+  --color-primary: #0F172A;
+  --color-secondary: #9333EA;
+  --color-tertiary: #C084FC;
+  --color-white-5: rgba(255, 255, 255, 0.05);
+  --color-bluegray-200: #E2E8F0;
+  --color-bluegray-300: #CBD5E1;
+  --color-bluegray-400: #94A3B8;
+
+  --font-sans: "Roboto", sans-serif;
+  --text-32: 2rem; /* 32px */
+  --text-56: 3.5rem; /* 56px */
+
+  --spacing-8: 0.5rem; /* 8px */
+  --spacing-12: 0.75rem; /* 12px */
+  --spacing-16: 1rem; /* 16px */
+  --spacing-24: 1.5rem; /* 24px */
+  --spacing-28: 1.75rem; /* 28px */
+  --spacing-32: 2rem; /* 32px */
+  --spacing-38: 2.375rem; /* 38px */
+  --spacing-48: 3rem; /* 48px */
+  --spacing-80: 5rem; /* 80px */
+  --spacing-110: 6.875rem; /* 110px */
+
+  --tracking-3: 0.1875rem; /* 3px */
+
+  --border-radius-xl: 1.25rem; /* 20px */
+}
+
+@layer base {
+  :focus-visible {
+    outline: 2px solid var(--color-secondary);
+    outline-offset: 2px;
+  }
+}
+
+body {
+  @apply bg-primary text-white font-sans;
+}
+
+a {
+    @apply rounded-sm;
+}
+
+section {
+    @apply w-full p-80;
+}
+
+h1, h2 {
+    @apply leading-[1.1];
+}
+
+.hover_secondary {
+    @apply hover:text-secondary transition;
+}
+
+.brand {
+    @apply text-32 font-bold transition-transform duration-200 hover:scale-110;
+}
+
+.navlink {
+    @apply px-8 py-12 rounded-xl font-medium;
+}
+
+.secondary_button {
+    @apply bg-secondary text-white rounded-lg hover:bg-secondary/70 transition ;
+}
+
+.transparent_button {
+    @apply bg-transparent border border-white text-white rounded-lg hover:border-secondary transition ;
+}
+
+.hero_button {
+    @apply text-xl font-medium py-16;
+}
+
+
+.jam_icon {
+    @apply text-2xl transition-transform duration-200 hover:scale-120 hover:text-secondary;
+}
