@@ -8,8 +8,7 @@ export default function Navbar() {
                 <div className="flex items-center gap-38">
                     <Link to="/" className="brand">weeb</Link>
                     <div className="flex items-center gap-16">
-                        <Link to="/" className="navlink hover_secondary">À Propos</Link>
-                        <Link to="/" className="navlink hover_secondary">Contact</Link>
+                        <Link to="/contact" className="navlink hover_secondary">Contact</Link>
                     </div>
                 </div>
                 <div className="flex items-center gap-16">
