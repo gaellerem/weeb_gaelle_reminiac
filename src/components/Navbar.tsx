@@ -8,13 +8,13 @@ export default function Navbar() {
                 <div className="flex items-center gap-38">
                     <Link to="/" className="brand">weeb</Link>
                     <div className="flex items-center gap-16">
-                        <Link to="/" className="navlink hover_secondary">About Us</Link>
+                        <Link to="/" className="navlink hover_secondary">À Propos</Link>
                         <Link to="/" className="navlink hover_secondary">Contact</Link>
                     </div>
                 </div>
                 <div className="flex items-center gap-16">
-                    <Link to="/" className="navlink hover_secondary"><span className="px-16">Log In</span></Link>
-                    <Link to="/" className="secondary_button py-12 px-28">Join Now</Link>
+                    <Link to="/" className="navlink hover_secondary"><span className="px-16">Se Connecter</span></Link>
+                    <Link to="/" className="secondary_button py-12 px-28">Rejoignez-nous</Link>
                 </div>
             </div>
         </div>

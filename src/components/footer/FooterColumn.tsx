@@ -1,16 +1,14 @@
 type FooterColumnProps = {
-  title?: string
+  title: string
   links: string[]
 }
 
 export default function FooterColumn({ title, links }: FooterColumnProps) {
     return (
         <div className="flex flex-col w-full">
-            {title && (
-                <span className="text-bluegray-400 py-12">
-                    {title}
-                </span>
-            )}
+            <span className="text-bluegray-400 py-12 uppercase">
+                {title}
+            </span>
 
             <ul className="flex flex-col">
                 {links.map((link, index) => (

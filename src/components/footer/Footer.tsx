@@ -8,10 +8,10 @@ export default function Footer() {
             <div className="w-full">
                 <Link to="/" className="brand block w-fit">weeb</Link>
             </div>
-            <FooterColumn title="PRODUCT" links={["Pricing", "Overview", "Browse", "Accessibility", "Five"]}/>
-            <FooterColumn title="SOLUTIONS" links={["Brainstorming", "Ideation", "Wireframing", "Research"]}/>
-            <FooterColumn title="RESOURCES" links={["Help Center", "Blog", "Tutorials"]}/>
-            <FooterColumn title="COMPANY" links={["About", "Press", "Events", "Careers"]}/>
+            <FooterColumn title="Produit" links={["Tarifs", "Aperçu", "Parcourir", "Accessibilité", "Fonctionnalités"]}/>
+            <FooterColumn title="Solutions" links={["Brainstorming", "Idéation", "Wireframing", "Recherche"]}/>
+            <FooterColumn title="Ressources" links={["Centre d'aide", "Blog", "Tutoriels"]}/>
+            <FooterColumn title="Entreprise" links={["À propos", "Presse", "Événements", "Carrières"]}/>
         </div>
         <div className="flex gap-48 items-center py-48">
             <span className="w-full">@ 2025 Weeb, Inc. All rights reserved.</span>
