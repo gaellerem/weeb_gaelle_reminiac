@@ -66,11 +66,11 @@ h1, h2 {
 }
 
 .secondary_button {
-    @apply bg-secondary text-white rounded-lg hover:bg-secondary/70 transition ;
+    @apply bg-secondary text-white rounded-lg hover:bg-secondary/50 hover:text-tertiary transition ;
 }
 
 .transparent_button {
-    @apply bg-transparent border border-white text-white rounded-lg hover:border-secondary transition ;
+    @apply bg-transparent border border-white text-white rounded-lg hover:border-tertiary hover:text-tertiary transition ;
 }
 
 .hero_button {
