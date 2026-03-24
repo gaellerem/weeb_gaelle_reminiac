@@ -3,9 +3,9 @@ import SectionText from "./SectionText";
 
 export default function LearnSection() {
   return (
-    <section className="flex justify-center items-center">
+    <section className="flex flex-col lg:flex-row justify-center items-center gap-32 lg:gap-80">
         <SectionText
-            width = {648}
+            className="flex-2"
             caption="Des ressources pour tous les niveaux"
             headline={
                 <>
@@ -21,8 +21,8 @@ export default function LearnSection() {
             bottomLink={{ label: "Explorez les ressources", to: "/" }}
         />
 
-        <div className="h-120">
-            <img src={desktopImage} alt="Desktop Illustration" className="h-full object-fill" />
+        <div className="flex-3 w-full">
+            <img src={desktopImage} alt="Illustration d'un bureau avec des éléments de développement web" className="lg:object-fill" />
         </div>
     </section>
   )
