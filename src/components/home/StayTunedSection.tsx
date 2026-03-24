@@ -3,10 +3,10 @@ import shapesImage from "../../assets/Shapes.svg";
 
 export default function StayTunedSection() {
   return (
-    <section className="flex justify-center items-center gap-110">
-        <img src={shapesImage} alt="Shapes Illustration" />
+    <section className="flex flex-col lg:flex-row items-center gap-32 lg:gap-80">
+        <img src={shapesImage} alt="Illustration abstraite de formes géométriques représentant l'écosystème web" className="w-full max-w-120" />
         <SectionText
-            width={800}
+            className="flex-1"
             caption="Le web, un écosystème en constante évolution"
             headline={
                 <>

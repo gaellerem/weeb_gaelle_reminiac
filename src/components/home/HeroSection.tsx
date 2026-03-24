@@ -3,9 +3,9 @@ import desktopImage from "../../assets/Desktop.svg";
 
 export default function HeroSection() {
   return (
-    <section className="flex flex-col gap-80 items-center justify-center">
+    <section className="flex flex-col gap-32 lg:gap-80 items-center justify-center">
         <div className="flex flex-col gap-32 items-center text-center">
-            <h1 className="text-7xl font-extrabold">
+            <h1 className="text-5xl md:text-7xl font-extrabold">
                 Explorez le <span className="text-tertiary font-light">Web</span> sous toutes ses <span className="underline decoration-tertiary">facettes</span>
             </h1>
             <p className="max-w-162 text-lg leading-[1.6]">
@@ -13,12 +13,12 @@ export default function HeroSection() {
                 technologies et meilleures pratiques. Que vous soyez développeur, designer ou passionné du digital,
                 notre blog vous offre du contenu de qualité pour rester à la pointe.
             </p>
-            <div className="flex gap-16">
-                <Link to="/" className="secondary_button hero_button w-[237px]">Découvrir les articles</Link>
-                <Link to="/" className="transparent_button hero_button w-66.5">S'abonner à la newsletter</Link>
+            <div className="flex flex-col md:flex-row gap-16 items-center">
+                <Link to="/" className="secondary_button hero_button">Découvrir les articles</Link>
+                <Link to="/" className="transparent_button hero_button">S'abonner à la newsletter</Link>
             </div>
         </div>
-        <img src={desktopImage} alt="Hero Illustration" className="w-275" />
+        <img src={desktopImage} alt="Illustration d'un bureau avec des éléments web" className="w-full max-w-275" />
     </section>
   )
 }
