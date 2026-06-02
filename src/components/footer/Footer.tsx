@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import FooterColumn from "./FooterColumn";
+import { FaYoutube, FaFacebookF, FaTwitter, FaInstagram, FaLinkedin } from 'react-icons/fa';
 
 export default function Footer() {
   return (
@@ -16,11 +17,11 @@ export default function Footer() {
         <div className="flex gap-48 items-center py-48">
             <span className="w-full">@ 2025 Weeb, Inc. All rights reserved.</span>
             <div className="flex gap-16">
-                <a href="#" className="jam_icon"><i className="jam jam-youtube" /></a>
-                <a href="#" className="jam_icon"><i className="jam jam-facebook" /></a>
-                <a href="#" className="jam_icon"><i className="jam jam-twitter" /></a>
-                <a href="#" className="jam_icon"><i className="jam jam-instagram" /></a>
-                <a href="#" className="jam_icon"><i className="jam jam-linkedin" /></a>
+                <a href="#" className="jam_icon"><FaYoutube /></a>
+                <a href="#" className="jam_icon"><FaFacebookF /></a>
+                <a href="#" className="jam_icon"><FaTwitter /></a>
+                <a href="#" className="jam_icon"><FaInstagram /></a>
+                <a href="#" className="jam_icon"><FaLinkedin /></a>
             </div>
         </div>
     </footer>
