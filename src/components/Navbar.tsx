@@ -9,6 +9,7 @@ export default function Navbar() {
                     <Link to="/" className="brand">weeb</Link>
                     <div className="flex items-center gap-16">
                         <Link to="/contact" className="navlink hover_secondary">Contact</Link>
+                        <Link to="/blog" className="navlink hover_secondary">Blog</Link>
                     </div>
                 </div>
                 <div className="flex items-center gap-16">
