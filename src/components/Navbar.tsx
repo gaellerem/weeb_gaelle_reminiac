@@ -42,6 +42,7 @@ export default function Navbar() {
                             <Link to="/contact" className="navlink hover_secondary">
                                 Contact
                             </Link>
+                            <Link to="/blog" className="navlink hover_secondary">Blog</Link>
                         </div>
                     </div>
 

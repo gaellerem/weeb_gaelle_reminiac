@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import FooterColumn from "./FooterColumn";
+import { FaYoutube, FaFacebookF, FaTwitter, FaInstagram, FaLinkedin } from 'react-icons/fa';
 
 export default function Footer() {
   return (
@@ -17,25 +18,19 @@ export default function Footer() {
             <span className="w-full">@ 2025 Weeb, Inc. All rights reserved.</span>
             <div className="flex gap-16">
                 <a href="#" className="jam_icon" aria-label="YouTube">
-                    <span className="sr-only">YouTube</span>
-                    <i className="jam jam-youtube" aria-hidden />
+                    <span className="sr-only">YouTube</span><FaYoutube />
                 </a>
                 <a href="#" className="jam_icon" aria-label="Facebook">
-                    <span className="sr-only">Facebook</span>
-                    <i className="jam jam-facebook" aria-hidden />
+                    <span className="sr-only">Facebook</span><FaFacebookF />
                 </a>
                 <a href="#" className="jam_icon" aria-label="Twitter">
-                    <span className="sr-only">Twitter</span>
-                    <i className="jam jam-twitter" aria-hidden />
+                    <span className="sr-only">Twitter</span><FaTwitter />
                 </a>
                 <a href="#" className="jam_icon" aria-label="Instagram">
-                    <span className="sr-only">Instagram</span>
-                    <i className="jam jam-instagram" aria-hidden />
+                    <span className="sr-only">Instagram</span><FaInstagram />
                 </a>
-
                 <a href="#" className="jam_icon" aria-label="LinkedIn">
-                    <span className="sr-only">LinkedIn</span>
-                    <i className="jam jam-linkedin" aria-hidden />
+                    <span className="sr-only">LinkedIn</span><FaLinkedin />
                 </a>
             </div>
         </div>

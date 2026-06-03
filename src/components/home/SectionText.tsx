@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom"
+import { FiArrowRight } from 'react-icons/fi'
 
 type SectionTextProps = {
     className?: string
@@ -39,7 +40,7 @@ export default function SectionText({
                 <p className="text-xl font-medium leading-24 pr-16 tracking-[0.5px]">
                     {bottomLink.label}
                 </p>
-                <Link to={bottomLink.to} className="jam_icon" aria-label={`Aller à ${bottomLink.label}`}><i className="jam jam-arrow-right" /></Link>
+                <Link to={bottomLink.to} className="jam_icon" aria-label={`Aller à ${bottomLink.label}`}><FiArrowRight /></Link>
             </div>
         </div>
     )
