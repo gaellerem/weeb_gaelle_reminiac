@@ -3,7 +3,7 @@ import { HeroSection, TrustSection, LearnSection, StayTunedSection } from "../co
 
 export default function Home() {
   return (
-    <PageLayout className="flex flex-col gap-80">
+    <PageLayout className="flex flex-col gap-32 lg:gap-80">
       <HeroSection />
       <TrustSection />
       <LearnSection />
