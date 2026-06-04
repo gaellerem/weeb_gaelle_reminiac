@@ -1,15 +1,19 @@
 import { useEffect, useState, useCallback } from "react"
 import { useParams, useNavigate } from "react-router-dom"
-import { getArticleBySlug } from "../api/client"
+import { getArticleBySlug, deleteArticle } from "../api/client"
+import { useAuth } from "../contexts/AuthContext"
 import type { Article } from "../models/articles"
 import PageLayout from "./PageLayout"
 
 export default function BlogDetail() {
     const { slug } = useParams<{ slug: string }>()
-    const navigate = useNavigate()
     const [article, setArticle] = useState<Article | null>(null)
     const [loading, setLoading] = useState<boolean>(true)
     const [error, setError] = useState<string | null>(null)
+    const { user } = useAuth()
+    const isOwner = user?.id === article?.author.id
+
+    const navigate = useNavigate()
 
     const fetchArticle = useCallback(async () => {
         if (!slug) return
@@ -27,6 +31,16 @@ export default function BlogDetail() {
     useEffect(() => {
         fetchArticle()
     }, [fetchArticle])
+
+    const handleDelete = async () => {
+        if (!confirm("Supprimer cet article ?")) return
+        try {
+            await deleteArticle(article!.slug)
+            navigate("/blog")
+        } catch {
+            console.error("Erreur lors de la suppression")
+        }
+    }
 
     const formattedDate = article
         ? new Date(article.created_at).toLocaleDateString("fr-FR", {
@@ -64,6 +78,22 @@ export default function BlogDetail() {
                         <div className="text-white/80 leading-relaxed text-lg">
                             {article.content}
                         </div>
+                        { isOwner && (
+                            <div className="flex gap-16 justify-end">
+                                <button
+                                    onClick={() => navigate(`/blog/${article.slug}/edit`)}
+                                    className="secondary_button py-12 px-28"
+                                >
+                                    Modifier
+                                </button>
+                                <button
+                                    onClick={handleDelete}
+                                    className="secondary_button py-12 px-28 text-red-400 border-red-400/30 hover:border-red-400"
+                                >
+                                    Supprimer
+                                </button>
+                            </div>
+                        )}
                     </article>
                 )}
             </section>
