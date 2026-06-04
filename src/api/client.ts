@@ -117,6 +117,8 @@ export const getArticles = () => handleRequest<Article[]>(api.get("articles/"));
 
 export const getArticleBySlug = (slug: string) => handleRequest<Article>(api.get(`articles/${slug}/`));
 
+export const createArticle = (data: { title: string; content: string }) => handleRequest<Article>(privateApi.post("articles/", data));
+
 export const updateArticle = (slug: string, data: { title: string; content: string }) =>
     handleRequest<Article>(privateApi.patch(`articles/${slug}/`, data))
 export const deleteArticle = (slug: string) =>
