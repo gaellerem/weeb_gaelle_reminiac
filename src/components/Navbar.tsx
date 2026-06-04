@@ -1,25 +1,37 @@
-import { Link } from "react-router-dom"
+import { Link, NavLink, useNavigate } from "react-router-dom"
 import { useState, useRef, useEffect } from "react"
+import { FiMenu } from 'react-icons/fi'
+import { useAuth } from "../contexts/AuthContext"
+
+const navLinks = [
+    { to: "/contact", label: "Contact" },
+    { to: "/blog", label: "Blog", end: true },
+]
 
 export default function Navbar() {
     const [isOpen, setIsOpen] = useState(false)
+    const { user, logout } = useAuth()
     const buttonRef = useRef<HTMLButtonElement>(null)
-    const firstLinkRef = useRef<HTMLAnchorElement>(null)
+    const menuRef = useRef<HTMLDivElement>(null)
+
+    const navigate = useNavigate()
 
     useEffect(() => {
         const handleKeyDown = (event: KeyboardEvent) => {
-        if (event.key === 'Escape' && isOpen) {
-            setIsOpen(false)
-            buttonRef.current?.focus()
-        }
+            if (event.key === 'Escape' && isOpen) {
+                setIsOpen(false)
+                buttonRef.current?.focus()
+            }
         }
 
         if (isOpen) {
-        document.addEventListener('keydown', handleKeyDown)
-        // Focus the first link when menu opens
-        setTimeout(() => firstLinkRef.current?.focus(), 100)
+            document.addEventListener('keydown', handleKeyDown)
+            requestAnimationFrame(() => {
+                const firstFocusable = menuRef.current?.querySelector<HTMLElement>('a, button')
+                firstFocusable?.focus()
+            })
         } else {
-        document.removeEventListener('keydown', handleKeyDown)
+            document.removeEventListener('keydown', handleKeyDown)
         }
 
         return () => document.removeEventListener('keydown', handleKeyDown)
@@ -29,27 +41,49 @@ export default function Navbar() {
         setIsOpen((prev) => !prev)
     }
 
+    const handleLogout = async () => {
+        await logout()
+        navigate("/login")
+    }
+
     return (
         <nav className="md:py-24 md:px-80 px-20 bg-white-5 md:bg-transparent rounded-b-xl">
             <div className="w-full md:max-w-250 md:mx-auto md:bg-white-5 md:rounded-2xl p-24 md:shadow-xl">
                 <div className="flex justify-between items-center">
                     <div className="flex items-center gap-38">
-                        <Link to="/" className="brand" onClick={() => setIsOpen(false)}>
+                        <NavLink to="/" className="brand" onClick={() => setIsOpen(false)}>
                             weeb
-                        </Link>
+                        </NavLink>
 
                         <div className="hidden md:flex items-center gap-16">
-                            <Link to="/contact" className="navlink hover_secondary">
-                                Contact
-                            </Link>
-                            <Link to="/blog" className="navlink hover_secondary">Blog</Link>
+                            {navLinks.map(({ to, label, end }) => (
+                                <NavLink
+                                    key={to}
+                                    to={to}
+                                    end={end}
+                                    className={({ isActive }) =>`navlink hover_secondary ${isActive ? "text-secondary" : ""}`}
+                                >
+                                    {label}
+                                </NavLink>
+                            ))}
                         </div>
                     </div>
 
                     <div className="hidden md:flex items-center gap-16">
-                        <Link to="/login" className="secondary_button py-12 px-28">
-                            Se connecter
-                        </Link>
+                        {user ? (
+                            <>
+                                <span className="font-semibold">
+                                    {user.first_name ? `${user.first_name} ${user.last_name ?? ""}`.trim() : user.email}
+                                </span>
+                                <button type="button" onClick={handleLogout} className="secondary_button py-12 px-28">
+                                    Déconnexion
+                                </button>
+                            </>
+                        ) : (
+                            <Link to="/login" className="secondary_button py-12 px-28">
+                                Se connecter
+                            </Link>
+                        )}
                     </div>
 
                     <button
@@ -61,28 +95,49 @@ export default function Navbar() {
                         onClick={toggleMenu}
                     >
                         <span className="sr-only">{isOpen ? 'Fermer le menu' : 'Ouvrir le menu'}</span>
-                        <i className={`jam ${isOpen ? "jam-close" : "jam-align-justify"} text-5xl`} />
+                        <FiMenu className="text-xl" />
                     </button>
                 </div>
 
-                <div id="mobile-menu" className={`${isOpen ? "block" : "hidden"} md:hidden pt-24`}>
+                <div id="mobile-menu" className={`${isOpen ? "block" : "hidden"} md:hidden pt-24`} ref={menuRef}>
                     <div className="flex flex-col gap-16 border-t border-white/10 pt-24 items-end">
-                        <Link
-                            ref={firstLinkRef}
-                            to="/contact"
-                            className="navlink hover_secondary"
-                            onClick={() => setIsOpen(false)}
-                        >
-                            Contact
-                        </Link>
+                        {navLinks.map(({ to, label, end }) => (
+                            <NavLink
+                                key={to}
+                                to={to}
+                                end={end}
+                                className={({ isActive }) =>`navlink hover_secondary ${isActive ? "text-secondary" : ""}`}
+                                onClick={() => setIsOpen(false)}
+                            >
+                                {label}
+                            </NavLink>
+                        ))}
 
-                        <Link
-                            to="/login"
-                            className="secondary_button py-12 px-28 w-fit"
-                            onClick={() => setIsOpen(false)}
-                        >
-                            Se connecter
-                        </Link>
+                        {user ? (
+                            <div className="flex flex-col gap-12 items-end w-full">
+                                <span className="font-semibold text-right">
+                                    {user.first_name ? `${user.first_name} ${user.last_name ?? ""}`.trim() : user.email}
+                                </span>
+                                <button
+                                    type="button"
+                                    className="secondary_button py-12 px-28 w-fit"
+                                    onClick={() => {
+                                        setIsOpen(false)
+                                        handleLogout()
+                                    }}
+                                >
+                                    Déconnexion
+                                </button>
+                            </div>
+                        ) : (
+                            <Link
+                                to="/login"
+                                className="secondary_button py-12 px-28 w-fit"
+                                onClick={() => setIsOpen(false)}
+                            >
+                                Se connecter
+                            </Link>
+                        )}
                     </div>
                 </div>
             </div>
