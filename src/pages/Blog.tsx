@@ -1,12 +1,14 @@
+import { useCallback, useEffect, useState } from "react"
+import { useNavigate } from "react-router-dom"
 import PageLayout from "./PageLayout"
 import ArticlesList from "../components/articles/ArticlesList"
 import { getArticles } from "../api/client"
-import { useCallback, useEffect, useState } from "react"
 import type { Article } from "../models/articles"
 
 export default function Blog() {
     const [articles, setArticles] = useState<Article[]>([])
     const [loading, setLoading] = useState<boolean>(true)
+    const navigate = useNavigate()
 
     const withLoading = useCallback(async (fn: () => Promise<void>) => {
         setLoading(true)
@@ -38,6 +40,9 @@ export default function Blog() {
                     <h1 className="text-7xl font-extrabold">
                         Le Blog
                     </h1>
+                    <button className="secondary_button self-center" onClick={() => navigate("/blog/new")}>
+                        Créer un nouvel article
+                    </button>
                     {loading ? (
                         <p>Chargement des articles...</p>
                     ) : (
