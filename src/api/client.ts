@@ -59,6 +59,18 @@ const handleRequest = async <T>(promise: Promise<AxiosResponse<T>>): Promise<T> 
     return response.data;
 };
 
+export const getCurrentUser = (): User | null => {
+    const stored = sessionStorage.getItem("user");
+    if (!stored) return null;
+    try {
+        return JSON.parse(stored) as User;
+    } catch {
+        sessionStorage.removeItem("user");
+        return null;
+    }
+};
+
+
 // ===== Auth =====
 export interface UserResponse {
     message: string;
@@ -75,6 +87,7 @@ export const register = async (data: {
 }) => {
     const response = await handleRequest<UserResponse>(api.post("users/register/", data));
     sessionStorage.setItem("access", response.access);
+    sessionStorage.setItem("user", JSON.stringify(response.user));
     return response;
 };
 
@@ -84,12 +97,14 @@ export const login = async (data: {
 }) => {
     const response = await handleRequest<UserResponse>(api.post("users/login/", data));
     sessionStorage.setItem("access", response.access);
+    sessionStorage.setItem("user", JSON.stringify(response.user));
     return response;
 };
 
 export const logout = async () => {
     const response = await handleRequest(api.post("users/logout/", {}));
     sessionStorage.removeItem("access");
+    sessionStorage.removeItem("user");
     return response;
 };
 

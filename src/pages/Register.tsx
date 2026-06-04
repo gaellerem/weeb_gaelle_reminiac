@@ -1,7 +1,7 @@
-import { type SubmitEvent, useState } from "react";
+import { type SubmitEvent, useEffect, useState } from "react";
 import PageLayout from "./PageLayout"
-import { Link } from "react-router-dom"
-import { register } from "../api/client";
+import { Link, useNavigate } from "react-router-dom"
+import { useAuth } from "../contexts/AuthContext";
 
 export default function Register() {
     const [name, setName] = useState("");
@@ -10,6 +10,14 @@ export default function Register() {
     const [password, setPassword] = useState("");
     const [confirmPassword, setConfirmPassword] = useState("");
     const [error, setError] = useState("");
+    const navigate = useNavigate();
+    const { register, isAuthenticated } = useAuth();
+
+    useEffect(() => {
+        if (isAuthenticated) {
+            navigate("/");
+        }
+    }, [isAuthenticated, navigate]);
 
     const handleRegister = async (event: SubmitEvent<HTMLFormElement>) => {
         event.preventDefault();
@@ -19,6 +27,7 @@ export default function Register() {
         }
         try {
             await register({ first_name: name, last_name: surname, email, password, password_confirm: confirmPassword });
+            navigate("/");
         } catch (err) {
             setError("Une erreur est survenue lors de l'inscription.");
         }

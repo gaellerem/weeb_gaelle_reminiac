@@ -1,16 +1,22 @@
-import { type FormEvent, useState } from "react";
+import { type FormEvent, useEffect, useState } from "react";
 import PageLayout from "./PageLayout"
 import { Link, useNavigate } from "react-router-dom"
-import { login } from "../api/client";
+import { useAuth } from "../contexts/AuthContext";
 
 export default function Login() {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [error, setError] = useState("");
     const navigate = useNavigate();
+    const { login, isAuthenticated } = useAuth();
+
+    useEffect(() => {
+        if (isAuthenticated) {
+            navigate("/")
+        }
+    }, [isAuthenticated, navigate]);
 
     const handleLogin = async (event: FormEvent<HTMLFormElement>) => {
-        console.log("submit login", event);
         event.preventDefault();
         try {
             await login({ email, password });
