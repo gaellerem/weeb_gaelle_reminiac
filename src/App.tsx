@@ -1,5 +1,6 @@
 import { RouterProvider, createBrowserRouter } from "react-router-dom"
 import { AuthProvider } from "./contexts/AuthContext"
+import { ToastProvider } from "./components/ToastProvider"
 import Home from "./pages/Home"
 import Contact from "./pages/Contact"
 import Login from "./pages/Login"
@@ -24,7 +25,9 @@ const router = createBrowserRouter([
 export default function App() {
     return (
         <AuthProvider>
-            <RouterProvider router={router} />
+            <ToastProvider>
+                <RouterProvider router={router} />
+            </ToastProvider>
         </AuthProvider>
     )
 }

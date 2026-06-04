@@ -3,18 +3,19 @@ import { useParams, useNavigate } from "react-router-dom"
 import { getArticleBySlug, createArticle, updateArticle } from "../api/client"
 import { useAuth } from "../contexts/AuthContext"
 import ArticleForm from "../components/articles/ArticleForm"
+import { useToast } from "../hooks/useToast"
 
 export default function BlogForm() {
     const { slug } = useParams<{ slug?: string }>()
     const isEditing = !!slug // permet de déterminer si on est en création ou édition selon la présence du slug dans l'URL
     const { user } = useAuth()
+    const toast = useToast()
 
     const [title, setTitle] = useState("")
     const [content, setContent] = useState("")
     const [currentSlug, setCurrentSlug] = useState("")
     const [loading, setLoading] = useState(isEditing)
     const [saving, setSaving] = useState(false)
-    const [error, setError] = useState<string | null>(null)
 
     const navigate = useNavigate()
 
@@ -32,7 +33,8 @@ export default function BlogForm() {
             setContent(data.content)
             setCurrentSlug(data.slug)
         } catch {
-            setError("Article introuvable.")
+            toast.error("Article introuvable.")
+            navigate("/blog")
         } finally {
             setLoading(false)
         }
@@ -44,20 +46,22 @@ export default function BlogForm() {
 
     const handleSubmit = async () => {
         if (!title.trim() || !content.trim()) {
-            setError("Le titre et le contenu sont obligatoires.")
+            toast.error("Le titre et le contenu sont obligatoires.")
             return
         }
         setSaving(true)
         try {
             if (isEditing) {
                 const updated = await updateArticle(currentSlug, { title, content })
+                toast.success("Article modifié.")
                 navigate(`/blog/${updated.slug}`)
             } else {
                 const created = await createArticle({ title, content })
+                toast.success("Article publié.")
                 navigate(`/blog/${created.slug}`)
             }
         } catch {
-            setError(isEditing ? "Erreur lors de la sauvegarde." : "Erreur lors de la création.")
+            toast.error(isEditing ? "Erreur lors de la sauvegarde." : "Erreur lors de la création.")
         } finally {
             setSaving(false)
         }
@@ -75,7 +79,6 @@ export default function BlogForm() {
             onSubmit={handleSubmit}
             onCancel={() => navigate(isEditing ? `/blog/${slug}` : "/blog")}
             saving={saving}
-            error={error}
             submitLabel={isEditing ? "Sauvegarder" : "Publier"}
             savingLabel={isEditing ? "Sauvegarde..." : "Publication..."}
         />

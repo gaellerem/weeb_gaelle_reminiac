@@ -58,9 +58,27 @@ privateApi.interceptors.response.use(
     }
 );
 
+class ApiError extends Error {
+    status: number
+    data: any
+
+    constructor(status: number, data: any, message: string) {
+        super(message)
+        this.status = status
+        this.data = data
+    }
+}
+
 const handleRequest = async <T>(promise: Promise<AxiosResponse<T>>): Promise<T> => {
-    const response = await promise;
-    return response.data;
+    try {
+        const response = await promise;
+        return response.data;
+    } catch (error: any) {
+        if (error.response) {
+            throw new ApiError(error.response.status, error.response.data, error.response.data.message || "Une erreur est survenue.");
+        }
+        throw new ApiError(0, null, "Erreur réseau. Veuillez vérifier votre connexion.");
+    }
 };
 
 export const getCurrentUser = (): User | null => {
@@ -96,9 +114,11 @@ export interface LoginData {
 }
 
 export const register = async (data: RegisterData) => {
-    return handleRequest<UserResponse>(
-        api.post("users/register/", data)
-    );
+    try {
+        return await handleRequest<UserResponse>(api.post("users/register/", data));
+    } catch (error: any) {
+        throw new Error(error.data?.message || "Une erreur est survenue lors de l'inscription.");
+    }
 };
 
 export const login = async (data: LoginData) => {
@@ -112,11 +132,7 @@ export const login = async (data: LoginData) => {
 
         return response;
     } catch (error: any) {
-        const apiError = error.response?.data;
-
-        throw new Error(
-            apiError?.message || "Une erreur est survenue."
-        );
+        throw new Error(error.data?.message || "Email ou mot de passe incorrect.");
     }
 };
 
