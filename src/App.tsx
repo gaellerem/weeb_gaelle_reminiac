@@ -5,13 +5,16 @@ import Contact from "./pages/Contact"
 import Login from "./pages/Login"
 import Blog from "./pages/Blog"
 import Register from "./pages/Register"
+import BlogDetail from "./pages/BlogDetail"
+
 
 const router = createBrowserRouter([
     { path: "/", element: <Home /> },
     { path: "/contact", element: <Contact /> },
     { path: "/login", element: <Login />},
     { path: "/register", element: <Register /> },
-    { path: "/blog", element: <Blog /> }
+    { path: "/blog", element: <Blog /> },
+    { path: "/blog/:slug", element: <BlogDetail /> }
 ])
 
 export default function App() {

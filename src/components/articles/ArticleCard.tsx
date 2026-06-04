@@ -13,7 +13,7 @@ export default function ArticleCard({ article }: ArticleCardProps) {
     })
 
     return (
-        <Link to={`/articles/${article.id}`} className="group">
+        <Link to={`/blog/${article.slug}`} className="group">
             <article className="bg-white/5 backdrop-blur-sm rounded-xl border border-white/10 p-32 hover:border-secondary hover:bg-white/10 transition-all duration-300 h-full flex flex-col gap-24">
                 <div className="flex flex-col gap-16">
                     <h3 className="text-2xl font-bold group-hover:text-secondary transition-colors line-clamp-2">

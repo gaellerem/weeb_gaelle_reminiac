@@ -109,6 +109,7 @@ export const logout = async () => {
 };
 
 // ===== Articles =====
-export const getArticles = (params?: { category_id?: number }) => handleRequest<Article[]>(api.get("articles/", { params }));
+export const getArticles = () => handleRequest<Article[]>(api.get("articles/"));
 
-export const getArticle = (id: number) => handleRequest<Article>(api.get(`articles/${id}/`));
+export const getArticleBySlug = (slug: string) =>
+    handleRequest<Article>(api.get(`articles/${slug}/`));
