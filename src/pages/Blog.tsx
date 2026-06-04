@@ -4,11 +4,16 @@ import PageLayout from "./PageLayout"
 import ArticlesList from "../components/articles/ArticlesList"
 import { getArticles } from "../api/client"
 import type { Article } from "../models/articles"
+import { useToast } from "../hooks/useToast"
+import { useAuth } from "../contexts/AuthContext"
 
 export default function Blog() {
+    const { user } = useAuth()
+    const toast = useToast()
+    const navigate = useNavigate()
+
     const [articles, setArticles] = useState<Article[]>([])
     const [loading, setLoading] = useState<boolean>(true)
-    const navigate = useNavigate()
 
     const withLoading = useCallback(async (fn: () => Promise<void>) => {
         setLoading(true)
@@ -23,9 +28,8 @@ export default function Blog() {
         try {
             const articles = await getArticles()
             setArticles(articles)
-            console.log("Articles chargés :", articles)
-        } catch (error) {
-            console.error("Erreur lors du chargement des articles :", error)
+        } catch (error: any) {
+            toast.error(error.message)
         }
     }), [withLoading])
 
@@ -40,9 +44,9 @@ export default function Blog() {
                     <h1 className="text-7xl font-extrabold">
                         Le Blog
                     </h1>
-                    <button className="secondary_button self-center" onClick={() => navigate("/blog/new")}>
+                    { user && <button className="secondary_button self-center" onClick={() => navigate("/blog/new")}>
                         Créer un nouvel article
-                    </button>
+                    </button>}
                     {loading ? (
                         <p>Chargement des articles...</p>
                     ) : (

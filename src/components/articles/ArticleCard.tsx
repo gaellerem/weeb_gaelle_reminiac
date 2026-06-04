@@ -24,7 +24,7 @@ export default function ArticleCard({ article }: ArticleCardProps) {
                             const authorDisplay = [article.author.first_name, article.author.last_name]
                                 .filter(Boolean)
                                 .join(" ") || "unknown";
-                            return `Auteur ${authorDisplay} • ${formattedDate}`;
+                            return `Par ${authorDisplay} • ${formattedDate}`;
                         })()}
                     </p>
                 </div>

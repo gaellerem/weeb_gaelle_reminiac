@@ -4,16 +4,21 @@ import { getArticleBySlug, deleteArticle } from "../api/client"
 import { useAuth } from "../contexts/AuthContext"
 import type { Article } from "../models/articles"
 import PageLayout from "./PageLayout"
+import ConfirmDialog from "../components/ConfirmDialog"
+import { useToast } from "../hooks/useToast"
 
 export default function BlogDetail() {
+    const { user } = useAuth()
     const { slug } = useParams<{ slug: string }>()
+    const toast = useToast()
+    const navigate = useNavigate()
+
     const [article, setArticle] = useState<Article | null>(null)
     const [loading, setLoading] = useState<boolean>(true)
-    const [error, setError] = useState<string | null>(null)
-    const { user } = useAuth()
+    const [deleteOpen, setDeleteOpen] = useState(false)
+
     const isOwner = user?.id === article?.author.id
 
-    const navigate = useNavigate()
 
     const fetchArticle = useCallback(async () => {
         if (!slug) return
@@ -21,8 +26,8 @@ export default function BlogDetail() {
         try {
             const data = await getArticleBySlug(slug)
             setArticle(data)
-        } catch {
-            setError("Article introuvable.")
+        } catch (error: any) {
+            toast.error(error.message)
         } finally {
             setLoading(false)
         }
@@ -33,12 +38,12 @@ export default function BlogDetail() {
     }, [fetchArticle])
 
     const handleDelete = async () => {
-        if (!confirm("Supprimer cet article ?")) return
         try {
             await deleteArticle(article!.slug)
+            toast.success("Article supprimé avec succès.")
             navigate("/blog")
-        } catch {
-            console.error("Erreur lors de la suppression")
+        } catch (error: any) {
+            toast.error(error.message)
         }
     }
 
@@ -60,8 +65,8 @@ export default function BlogDetail() {
 
                 {loading ? (
                     <p>Chargement de l'article...</p>
-                ) : error || !article ? (
-                    <p className="text-white/60">{error ?? "Article introuvable."}</p>
+                ) : !article ? (
+                    <p className="text-white/60">Article introuvable.</p>
                 ) : (
                     <article className="flex flex-col gap-32 max-w-3xl w-full text-left">
                         <div className="flex flex-col gap-16 text-center">
@@ -96,13 +101,22 @@ export default function BlogDetail() {
                                     Modifier
                                 </button>
                                 <button
-                                    onClick={handleDelete}
+                                    onClick={() => setDeleteOpen(true)}
                                     className="secondary_button py-12 px-28 text-red-400 border-red-400/30 hover:border-red-400"
                                 >
                                     Supprimer
                                 </button>
                             </div>
                         )}
+                        <ConfirmDialog
+                            open={deleteOpen}
+                            onClose={() => setDeleteOpen(false)}
+                            onConfirm={handleDelete}
+                            title="Supprimer l'article"
+                            description="Cette action est irréversible. L'article sera définitivement supprimé."
+                            confirmLabel="Supprimer"
+                            danger
+                        />
                     </article>
                 )}
             </section>

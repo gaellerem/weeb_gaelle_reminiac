@@ -1,17 +1,17 @@
 import { type FormEvent, useEffect, useState } from "react";
 import PageLayout from "./PageLayout"
-import { Link, useNavigate, useLocation } from "react-router-dom"
+import { Link, useNavigate } from "react-router-dom"
 import { useAuth } from "../contexts/AuthContext";
+import { useToast } from "../hooks/useToast";
 
 export default function Login() {
     const { login, isAuthenticated } = useAuth();
+    const toast = useToast();
 
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
-    const [error, setError] = useState("");
 
     const navigate = useNavigate();
-    const location = useLocation();
 
     useEffect(() => {
         if (isAuthenticated) {
@@ -19,29 +19,18 @@ export default function Login() {
         }
     }, [isAuthenticated, navigate]);
 
-    useEffect(() => {
-        if (location.state?.success) {
-            alert(location.state.success);
-            navigate(location.pathname, {
-                replace: true,
-                state: null,
-            });
-        }
-    }, [location, navigate]);
-
     const handleLogin = async (event: FormEvent<HTMLFormElement>) => {
         event.preventDefault();
         try {
             await login({ email, password });
             navigate("/");
         } catch (error: any) {
-            setError(error.message);
+            toast.error(error.message);
         }
     };
     return (
         <PageLayout>
         <section className="flex flex-col items-center gap-32">
-            { error && <p className="text-red-500 text-sm">{error}</p> }
             <form className="flex flex-col gap-32 items-center max-w-md px-4" onSubmit={handleLogin}>
                 <div className="w-full">
                     <label htmlFor="email" className="sr-only">Email</label>

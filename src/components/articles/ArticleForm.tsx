@@ -8,7 +8,6 @@ interface ArticleFormProps {
     onSubmit: () => void
     onCancel: () => void
     saving: boolean
-    error: string | null
     heading: string
     submitLabel: string
     savingLabel: string
@@ -22,7 +21,6 @@ export default function ArticleForm({
     onSubmit,
     onCancel,
     saving,
-    error,
     heading,
     submitLabel,
     savingLabel,
@@ -59,8 +57,6 @@ export default function ArticleForm({
                             className="bg-white/5 border border-white/10 rounded-xl px-20 py-12 text-white focus:outline-none focus:border-secondary transition-colors resize-none"
                         />
                     </div>
-
-                    {error && <p className="text-red-400 text-sm">{error}</p>}
 
                     <div className="flex gap-16 justify-end">
                         <button
