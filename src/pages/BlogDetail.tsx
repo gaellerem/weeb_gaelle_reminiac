@@ -76,7 +76,16 @@ export default function BlogDetail() {
                         </div>
 
                         <div className="text-white/80 leading-relaxed text-lg">
-                            {article.content}
+                            {article.content.split("\n\n").map((paragraph, i) => (
+                                <p key={i} className="mb-16">
+                                    {paragraph.split("\n").map((line, j, arr) => (
+                                        <span key={j}>
+                                            {line}
+                                            {j < arr.length - 1 && <br />}
+                                        </span>
+                                    ))}
+                                </p>
+                            ))}
                         </div>
                         { isOwner && (
                             <div className="flex gap-16 justify-end">
