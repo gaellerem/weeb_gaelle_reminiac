@@ -82,27 +82,42 @@ export interface UserResponse {
     access: string;
 }
 
-export const register = async (data: {
-    first_name: string;
-    last_name: string;
-    email: string;
-    password: string;
-    password_confirm: string;
-}) => {
-    const response = await handleRequest<UserResponse>(api.post("users/register/", data));
-    sessionStorage.setItem("access", response.access);
-    sessionStorage.setItem("user", JSON.stringify(response.user));
-    return response;
+export interface RegisterData {
+    first_name: string
+    last_name: string
+    email: string
+    password: string
+    password_confirm: string
+}
+
+export interface LoginData {
+    email: string
+    password: string
+}
+
+export const register = async (data: RegisterData) => {
+    return handleRequest<UserResponse>(
+        api.post("users/register/", data)
+    );
 };
 
-export const login = async (data: {
-    email: string;
-    password: string;
-}) => {
-    const response = await handleRequest<UserResponse>(api.post("users/login/", data));
-    sessionStorage.setItem("access", response.access);
-    sessionStorage.setItem("user", JSON.stringify(response.user));
-    return response;
+export const login = async (data: LoginData) => {
+    try {
+        const response = await handleRequest<UserResponse>(
+            api.post("users/login/", data)
+        );
+
+        sessionStorage.setItem("access", response.access);
+        sessionStorage.setItem("user", JSON.stringify(response.user));
+
+        return response;
+    } catch (error: any) {
+        const apiError = error.response?.data;
+
+        throw new Error(
+            apiError?.message || "Une erreur est survenue."
+        );
+    }
 };
 
 export const logout = async () => {

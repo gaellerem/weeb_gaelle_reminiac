@@ -1,19 +1,6 @@
 import { createContext, useContext, useMemo, useState, type ReactNode } from "react"
 import type { User } from "../models/users"
-import { getCurrentUser, login as apiLogin, logout as apiLogout, register as apiRegister } from "../api/client"
-
-interface LoginData {
-    email: string
-    password: string
-}
-
-interface RegisterData {
-    first_name: string
-    last_name: string
-    email: string
-    password: string
-    password_confirm: string
-}
+import { getCurrentUser, login as apiLogin, logout as apiLogout, register as apiRegister, type RegisterData, type LoginData } from "../api/client"
 
 interface AuthContextValue {
     user: User | null
@@ -29,13 +16,12 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     const [user, setUser] = useState<User | null>(() => getCurrentUser())
 
     const login = async (data: LoginData) => {
-        const response = await apiLogin(data)
-        setUser(response.user)
-    }
+        const response = await apiLogin(data);
+        setUser(response.user);
+    };
 
     const register = async (data: RegisterData) => {
-        const response = await apiRegister(data)
-        setUser(response.user)
+        await apiRegister(data)
     }
 
     const logout = async () => {

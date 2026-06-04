@@ -27,7 +27,12 @@ export default function Register() {
         }
         try {
             await register({ first_name: name, last_name: surname, email, password, password_confirm: confirmPassword });
-            navigate("/");
+            navigate("/login", {
+                state: {
+                    success:
+                        "Votre compte a été créé et est en attente de validation par un administrateur."
+                }
+            })
         } catch (err) {
             setError("Une erreur est survenue lors de l'inscription.");
         }
