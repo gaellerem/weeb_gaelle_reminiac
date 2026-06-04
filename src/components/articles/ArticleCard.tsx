@@ -21,10 +21,10 @@ export default function ArticleCard({ article }: ArticleCardProps) {
                     </h3>
                     <p className="text-sm text-white/60">
                         {(() => {
-                            const a = article.author as any;
-                            const nameParts = [a?.first_name, a?.last_name].filter(Boolean);
-                            const display = nameParts.length ? nameParts.join(' ') : (a?.email ?? `#${a?.id ?? ''}`);
-                            return `Auteur ${display} • ${formattedDate}`;
+                            const authorDisplay = [article.author.first_name, article.author.last_name]
+                                .filter(Boolean)
+                                .join(" ") || "unknown";
+                            return `Auteur ${authorDisplay} • ${formattedDate}`;
                         })()}
                     </p>
                 </div>

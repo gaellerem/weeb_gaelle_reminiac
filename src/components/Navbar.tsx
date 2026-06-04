@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom"
 import { useState, useRef, useEffect } from "react"
+import { FiMenu } from 'react-icons/fi'
 
 export default function Navbar() {
     const [isOpen, setIsOpen] = useState(false)
@@ -61,7 +62,7 @@ export default function Navbar() {
                         onClick={toggleMenu}
                     >
                         <span className="sr-only">{isOpen ? 'Fermer le menu' : 'Ouvrir le menu'}</span>
-                        <i className={`jam ${isOpen ? "jam-close" : "jam-align-justify"} text-5xl`} />
+                        <FiMenu className="text-xl" />
                     </button>
                 </div>
 
@@ -74,6 +75,9 @@ export default function Navbar() {
                             onClick={() => setIsOpen(false)}
                         >
                             Contact
+                        </Link>
+                        <Link to="/blog" className="navlink hover_secondary" onClick={() => setIsOpen(false)}>
+                            Blog
                         </Link>
 
                         <Link
