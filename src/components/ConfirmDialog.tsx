@@ -35,13 +35,13 @@ export default function ConfirmDialog({
                     <div className="flex gap-16 justify-end">
                         <button
                             onClick={onClose}
-                            className="transparent_button py-12 px-28"
+                            className="btn btn-border-white py-2 px-5"
                         >
                             {cancelLabel}
                         </button>
                         <button
                             onClick={() => { onConfirm(); onClose() }}
-                            className={`secondary_button py-12 px-28 ${danger ? "bg-red-500/20! text-red-400! hover:bg-red-500/30! hover:text-red-300! border border-red-500/30" : ""}`}
+                            className={`btn py-2 px-5 ${danger ? "btn-red" : ""}`}
                         >
                             {confirmLabel}
                         </button>

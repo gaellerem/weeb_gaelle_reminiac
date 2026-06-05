@@ -44,7 +44,7 @@ export default function Blog() {
                     <h1 className="text-7xl font-extrabold">
                         Le Blog
                     </h1>
-                    { user && <button className="secondary_button self-center" onClick={() => navigate("/blog/new")}>
+                    { user && <button className="secondary_button px-6 py-2 self-center" onClick={() => navigate("/blog/new")}>
                         Créer un nouvel article
                     </button>}
                     {loading ? (

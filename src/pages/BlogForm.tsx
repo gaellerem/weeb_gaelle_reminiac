@@ -25,7 +25,7 @@ export default function BlogForm() {
         setLoading(true)
         try {
             const data = await getArticleBySlug(slug)
-            if (user?.id !== data.author.id) {
+            if (user?.id !== data.author.id && !user?.is_staff) {
                 navigate(`/blog/${slug}`)
                 return
             }
