@@ -12,6 +12,7 @@ import BlogForm from "./pages/BlogForm"
 import ForgotPassword from "./pages/ForgotPassword"
 import ResetPassword from "./pages/ResetPassword"
 import Dashboard from "./pages/Dashboard"
+import NotFound from "./pages/NotFound"
 
 // TODO forgot-password, reset-password, profile, 404
 const router = createBrowserRouter([
@@ -25,7 +26,8 @@ const router = createBrowserRouter([
     { path: "/blog/:slug/edit", element: <PrivateRoute><BlogForm /></PrivateRoute> },
     { path: "/forgot-password", element: <ForgotPassword />},
     { path: "/reset-password", element: <ResetPassword />},
-    { path: "/dashboard", element: <PrivateRoute><Dashboard /></PrivateRoute>}
+    { path: "/dashboard", element: <PrivateRoute><Dashboard /></PrivateRoute>},
+    { path: "*", element: <NotFound />}
 ])
 
 export default function App() {
