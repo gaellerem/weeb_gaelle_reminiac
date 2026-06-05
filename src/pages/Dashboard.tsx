@@ -77,7 +77,7 @@ export default function Dashboard() {
                         ) : (
                             <div className="grid grid-cols-1 md:grid-cols-2 gap-32">
                                 {articles.map(article => (
-                                    <ArticleCard key={article.slug} article={article}/>
+                                    <ArticleCard key={article.slug} article={article} withContent={false}/>
                                 ))}
                             </div>
                         )}

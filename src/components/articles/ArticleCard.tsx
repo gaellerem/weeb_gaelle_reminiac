@@ -3,9 +3,10 @@ import { Link } from "react-router-dom"
 
 interface ArticleCardProps {
     article: Article
+    withContent?: boolean
 }
 
-export default function ArticleCard({ article }: ArticleCardProps) {
+export default function ArticleCard({ article, withContent=true }: ArticleCardProps) {
     const formattedDate = new Date(article.created_at).toLocaleDateString('fr-FR', {
         year: 'numeric',
         month: 'long',
@@ -29,7 +30,7 @@ export default function ArticleCard({ article }: ArticleCardProps) {
                     </p>
                 </div>
 
-                {article.content && (
+                {article.content && withContent && (
                     <p className="text-white/70 text-sm line-clamp-3 grow">
                         {article.content}
                     </p>
