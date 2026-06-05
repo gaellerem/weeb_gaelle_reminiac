@@ -195,3 +195,22 @@ export const sendContact = async (data: ContactData) => {
         )
     }
 }
+
+// ===== Admin =====
+export const getUsers = () =>
+    handleRequest<User[]>(
+        privateApi.get("api/admin/users/")
+    )
+
+export const updateUser = (
+    id: string,
+    data: {
+        is_active?: boolean
+        is_staff?: boolean
+        first_name?: string
+        last_name?: string
+    }
+) =>
+    handleRequest<User>(
+        privateApi.patch(`api/admin/users/${id}/`, data)
+    )

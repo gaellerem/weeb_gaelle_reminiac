@@ -89,7 +89,7 @@ export default function Navbar() {
                     <button
                         type="button"
                         ref={buttonRef}
-                        className="md:hidden secondary_button"
+                        className="md:hidden secondary_button px-4 py-2"
                         aria-expanded={isOpen}
                         aria-controls="mobile-menu"
                         onClick={toggleMenu}

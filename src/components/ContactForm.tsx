@@ -34,7 +34,7 @@ export default function ContactForm() {
         <form
             onSubmit={handleSubmit}
             className="grid grid-cols-1 md:grid-cols-2 gap-45 p-30 md:p-45 w-full max-w-200
-                       bg-tertiary/10 rounded-3xl border-2 border-secondary"
+                       bg-tertiary/10 rounded-3xl border-2 border-secondary text-2xl"
         >
             <div>
                 <label htmlFor="lastname" className="sr-only">Nom</label>
@@ -42,7 +42,7 @@ export default function ContactForm() {
                     id="lastname"
                     type="text"
                     placeholder="Nom"
-                    className="contact_input"
+                    className="input"
                     required
                     aria-required="true"
                     value={lastName}
@@ -56,7 +56,7 @@ export default function ContactForm() {
                     id="firstname"
                     type="text"
                     placeholder="Prénom"
-                    className="contact_input"
+                    className="input"
                     required
                     aria-required="true"
                     value={firstName}
@@ -70,7 +70,7 @@ export default function ContactForm() {
                     id="email"
                     type="email"
                     placeholder="Email"
-                    className="contact_input"
+                    className="input"
                     required
                     aria-required="true"
                     value={email}
@@ -84,7 +84,7 @@ export default function ContactForm() {
                     id="subject"
                     type="text"
                     placeholder="Sujet"
-                    className="contact_input"
+                    className="input"
                     required
                     aria-required="true"
                     value={subject}
@@ -97,7 +97,7 @@ export default function ContactForm() {
                 <textarea
                     id="message"
                     placeholder="Message"
-                    className="contact_input"
+                    className="input"
                     required
                     aria-required="true"
                     value={message}
@@ -109,7 +109,7 @@ export default function ContactForm() {
                 <button
                     type="submit"
                     disabled={loading}
-                    className="secondary_button disabled:opacity-50"
+                    className="secondary_button px-10 py-3 disabled:opacity-50"
                 >
                     {loading ? "Envoi..." : "Envoyer"}
                 </button>

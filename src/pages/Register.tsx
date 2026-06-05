@@ -42,13 +42,13 @@ export default function Register() {
 
     return (
         <PageLayout>
-            <section className="flex flex-col items-center gap-32">
+            <section className="flex flex-col items-center gap-32 text-xl">
                 <form className="flex flex-col gap-32 items-center max-w-md px-4" onSubmit={handleRegister}>
                     <div className="w-full">
                         <label htmlFor="name" className="sr-only">Prénom</label>
                         <input
                             id="name"
-                            className="contact_input"
+                            className="input"
                             type="text"
                             placeholder="Prénom"
                             value={name}
@@ -60,7 +60,7 @@ export default function Register() {
                         <label htmlFor="surname" className="sr-only">Nom</label>
                         <input
                             id="surname"
-                            className="contact_input"
+                            className="input"
                             type="text"
                             placeholder="Nom"
                             value={surname}
@@ -72,7 +72,7 @@ export default function Register() {
                         <label htmlFor="email" className="sr-only">Email</label>
                         <input
                             id="email"
-                            className="contact_input"
+                            className="input"
                             type="email"
                             placeholder="Email"
                             value={email}
@@ -85,7 +85,7 @@ export default function Register() {
                             <label htmlFor="password" className="sr-only">Mot de passe</label>
                             <input
                                 id="password"
-                                className="contact_input"
+                                className="input"
                                 type="password"
                                 placeholder="Mot de passe"
                                 value={password}
@@ -97,7 +97,7 @@ export default function Register() {
                             <label htmlFor="confirmPassword" className="sr-only">Confirmer le mot de passe</label>
                             <input
                                 id="confirmPassword"
-                                className="contact_input"
+                                className="input"
                                 type="password"
                                 placeholder="Confirmer le mot de passe"
                                 value={confirmPassword}
@@ -109,7 +109,7 @@ export default function Register() {
                     <button className="secondary_button px-18 py-12" type="submit">
                         S'inscrire
                     </button>
-                    <p className="text-xs text-white/70">
+                    <p className="text-sm text-white/70">
                         Vous avez déjà un compte ? Vous pouvez vous{" "}
                         <Link to="/login" className="font-semibold underline decoration-white hover:decoration-secondary hover:text-secondary transition">
                             connecter
