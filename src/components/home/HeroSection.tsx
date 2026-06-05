@@ -14,8 +14,8 @@ export default function HeroSection() {
                 notre blog vous offre du contenu de qualité pour rester à la pointe.
             </p>
             <div className="flex flex-col md:flex-row gap-16 items-center">
-                <Link to="/" className="secondary_button hero_button">Découvrir les articles</Link>
-                <Link to="/" className="transparent_button hero_button">S'abonner à la newsletter</Link>
+                <Link to="/blog" className="secondary_button hero_button">Découvrir les articles</Link>
+                <Link to="/subscribe" className="transparent_button hero_button">S'abonner à la newsletter</Link>
             </div>
         </div>
         <img src={desktopImage} alt="Illustration d'un bureau avec des éléments web" className="w-full max-w-275" />
