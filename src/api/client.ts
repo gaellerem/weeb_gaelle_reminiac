@@ -143,6 +143,26 @@ export const logout = async () => {
     return response;
 };
 
+export const requestPasswordReset = async (email: string) => {
+    try {
+        return await handleRequest(api.post("users/password-reset/request/", { email }))
+    } catch (error: any) {
+        throw new Error(error.data?.message || "Une erreur est survenue.")
+    }
+}
+
+export const confirmPasswordReset = async (data: {
+    uidb64: string
+    token: string
+    password: string
+}) => {
+    try {
+        return await handleRequest(api.post("users/password-reset/confirm/", data))
+    } catch (error: any) {
+        throw new Error(error.data?.message || "Lien invalide ou expiré.")
+    }
+}
+
 // ===== Articles =====
 export const getArticles = () => handleRequest<Article[]>(api.get("articles/"));
 

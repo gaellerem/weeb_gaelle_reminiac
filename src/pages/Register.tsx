@@ -27,6 +27,10 @@ export default function Register() {
             toast.error("Les mots de passe ne correspondent pas.");
             return;
         }
+        if (password.length < 12) {
+            toast.error("Le mot de passe doit contenir au moins 12 caractères.")
+            return
+        }
         try {
             await register({ first_name: name, last_name: surname, email, password, password_confirm: confirmPassword });
             toast.success("Inscription réussie ! Votre compte est en attente de validation par un administrateur.")
