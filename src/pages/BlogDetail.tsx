@@ -102,7 +102,7 @@ export default function BlogDetail() {
                                 </button>
                                 <button
                                     onClick={() => setDeleteOpen(true)}
-                                    className="secondary_button py-12 px-28 text-red-400 border-red-400/30 hover:border-red-400"
+                                    className="secondary_button py-12 px-28 border border-red-500/40! bg-red-500/10! text-red-400! hover:bg-red-500/20! hover:border-red-500/60!"
                                 >
                                     Supprimer
                                 </button>
