@@ -174,3 +174,24 @@ export const updateArticle = (slug: string, data: { title: string; content: stri
     handleRequest<Article>(privateApi.patch(`articles/${slug}/`, data))
 export const deleteArticle = (slug: string) =>
     handleRequest(privateApi.delete(`articles/${slug}/`))
+
+
+// ===== Contact =====
+export interface ContactData {
+    first_name: string
+    last_name: string
+    email: string
+    subject: string
+    message: string
+}
+
+export const sendContact = async (data: ContactData) => {
+    try {
+        return await handleRequest(api.post("contact/", data))
+    } catch (error: any) {
+        const firstError = Object.values(error.data ?? {})?.[0]
+        throw new Error(
+            Array.isArray(firstError) ? firstError[0] : error.message
+        )
+    }
+}
