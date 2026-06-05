@@ -33,52 +33,56 @@ export default function Dashboard() {
 
     return (
         <PageLayout>
-            <section className="flex flex-col gap-80 max-w-5xl mx-auto w-full">
+            <section className="flex flex-col gap-48 max-w-6xl mx-auto w-full">
+                <h1 className="text-4xl font-extrabold">Mon profil</h1>
 
-                {/* Profil */}
-                <div className="flex flex-col gap-24">
-                    <h1 className="text-4xl font-extrabold">Mon profil</h1>
-                    {user?.is_staff && (
-                        <h2 className="text-secondary text-2xl font-semibold">
-                            Administrateur
-                        </h2>
-                    )}
-                    <div className="bg-white/5 border border-white/10 rounded-xl p-32 flex flex-col gap-16">
-                        <div className="flex flex-col gap-8">
-                            <span className="text-white/50 text-sm">Nom</span>
-                            <span className="font-semibold">
-                                {user?.first_name} {user?.last_name}
-                            </span>
-                        </div>
-                        <div className="flex flex-col gap-8">
-                            <span className="text-white/50 text-sm">Email</span>
-                            <span className="font-semibold">{user?.email}</span>
+                <div className="flex flex-col lg:flex-row gap-48 items-start">
+
+                    {/* Colonne gauche — Profil */}
+                    <div className="flex flex-col gap-16 lg:w-72 shrink-0">
+                        {user?.is_staff && (
+                            <h2 className="text-secondary text-3xl font-semibold">
+                                Administrateur
+                            </h2>
+                        )}
+                        <div className="bg-white/5 border border-white/10 rounded-xl p-32 flex flex-col gap-16">
+                            <div className="flex flex-col gap-8">
+                                <span className="text-white/50 text-sm">Nom</span>
+                                <span className="font-semibold">
+                                    {user?.first_name} {user?.last_name}
+                                </span>
+                            </div>
+                            <div className="flex flex-col gap-8">
+                                <span className="text-white/50 text-sm">Email</span>
+                                <span className="font-semibold">{user?.email}</span>
+                            </div>
                         </div>
                     </div>
-                </div>
-
-                {/* Mes articles */}
-                <div className="flex flex-col gap-24">
-                    <div className="flex items-center justify-between">
-                        <h2 className="text-2xl font-extrabold">Mes articles</h2>
-                        <button
-                            onClick={() => navigate("/blog/new")}
-                            className="secondary_button py-12 px-28"
-                        >
-                            Nouvel article
-                        </button>
-                    </div>
-                    {loadingArticles ? (
-                        <p>Chargement des articles...</p>
-                    ) : articles.length === 0 ? (
-                        <p className="text-white/60">Vous n'avez pas encore écrit d'article.</p>
-                    ) : (
-                        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-32">
-                            {articles.map(article => (
-                                <ArticleCard key={article.slug} article={article} />
-                            ))}
+                    <div className="hidden lg:block w-px bg-white/10 self-stretch" />
+                    {/* Colonne droite — Articles */}
+                    <div className="flex flex-col gap-24 flex-1">
+                        <div className="flex items-center justify-between">
+                            <h2 className="text-2xl font-extrabold">Mes articles</h2>
+                            <button
+                                onClick={() => navigate("/blog/new")}
+                                className="secondary_button py-12 px-28"
+                            >
+                                Nouvel article
+                            </button>
                         </div>
-                    )}
+                        {loadingArticles ? (
+                            <p>Chargement des articles...</p>
+                        ) : articles.length === 0 ? (
+                            <p className="text-white/60">Vous n'avez pas encore écrit d'article.</p>
+                        ) : (
+                            <div className="grid grid-cols-1 md:grid-cols-2 gap-32">
+                                {articles.map(article => (
+                                    <ArticleCard key={article.slug} article={article}/>
+                                ))}
+                            </div>
+                        )}
+                    </div>
+
                 </div>
             </section>
         </PageLayout>
