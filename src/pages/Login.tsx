@@ -2,13 +2,16 @@ import { type FormEvent, useEffect, useState } from "react";
 import PageLayout from "./PageLayout"
 import { Link, useNavigate } from "react-router-dom"
 import { useAuth } from "../contexts/AuthContext";
+import { useToast } from "../hooks/useToast";
 
 export default function Login() {
+    const { login, isAuthenticated } = useAuth();
+    const toast = useToast();
+
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
-    const [error, setError] = useState("");
+
     const navigate = useNavigate();
-    const { login, isAuthenticated } = useAuth();
 
     useEffect(() => {
         if (isAuthenticated) {
@@ -21,8 +24,8 @@ export default function Login() {
         try {
             await login({ email, password });
             navigate("/");
-        } catch (error) {
-            setError("Erreur de connexion: " + error);
+        } catch (error: any) {
+            toast.error(error.message);
         }
     };
     return (
@@ -53,11 +56,10 @@ export default function Login() {
                         onChange={(e) => setPassword(e.target.value)}
                     />
                 </div>
-                { error && <p className="text-red-500 text-sm">{error}</p> }
                 <button className="secondary_button px-18 py-12" type="submit">
                     Se connecter
                 </button>
-                <Link to="/login" className="font-semibold text-sm hover:text-secondary transition">Mot de passe oublié ?</Link>
+                <Link to="/forgot-password" className="font-semibold text-sm hover:text-secondary transition">Mot de passe oublié ?</Link>
 
                 <p className="text-xs text-white/70">
                     Vous n'avez pas de compte ? Vous pouvez en {" "}

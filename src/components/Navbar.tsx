@@ -4,8 +4,8 @@ import { FiMenu } from 'react-icons/fi'
 import { useAuth } from "../contexts/AuthContext"
 
 const navLinks = [
-    { to: "/contact", label: "Contact" },
     { to: "/blog", label: "Blog", end: true },
+    { to: "/contact", label: "Contact" },
 ]
 
 export default function Navbar() {
