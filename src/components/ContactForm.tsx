@@ -1,74 +1,119 @@
+import { type FormEvent, useState } from "react"
+import { sendContact } from "../api/client"
+import { useToast } from "../hooks/useToast"
+
 export default function ContactForm() {
-  return (
-    <form className="grid grid-cols-1 md:grid-cols-2 gap-45 p-30 md:p-45 w-full max-w-200
-                    bg-tertiary/10 rounded-3xl border-2 border-secondary">
-        <div>
-            <label htmlFor="lastname" className="sr-only">Nom</label>
-            <input
-                id="lastname"
-                name="lastname"
-                type="text"
-                placeholder="Nom"
-                className="contact_input"
-                required
-                aria-required="true"
-            />
-        </div>
+    const toast = useToast()
+    const [loading, setLoading] = useState(false)
 
-        <div>
-            <label htmlFor="firstname" className="sr-only">Prénom</label>
-            <input
-                id="firstname"
-                name="firstname"
-                type="text"
-                placeholder="Prénom"
-                className="contact_input"
-                required
-                aria-required="true"
-            />
-        </div>
+    const [firstName, setFirstName] = useState("")
+    const [lastName, setLastName] = useState("")
+    const [email, setEmail] = useState("")
+    const [subject, setSubject] = useState("")
+    const [message, setMessage] = useState("")
 
-        <div>
-            <label htmlFor="phone" className="sr-only">N° téléphone</label>
-            <input
-                    id="phone"
-                    name="phone"
-                    type="tel"
-                    placeholder="N° téléphone"
+    const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
+        event.preventDefault()
+        setLoading(true)
+        try {
+            await sendContact({ first_name: firstName, last_name: lastName, email, subject, message })
+            toast.success("Votre message a bien été envoyé !")
+            setFirstName("")
+            setLastName("")
+            setEmail("")
+            setSubject("")
+            setMessage("")
+        } catch (error: any) {
+            toast.error(error.message)
+        } finally {
+            setLoading(false)
+        }
+    }
+
+    return (
+        <form
+            onSubmit={handleSubmit}
+            className="grid grid-cols-1 md:grid-cols-2 gap-45 p-30 md:p-45 w-full max-w-200
+                       bg-tertiary/10 rounded-3xl border-2 border-secondary"
+        >
+            <div>
+                <label htmlFor="lastname" className="sr-only">Nom</label>
+                <input
+                    id="lastname"
+                    type="text"
+                    placeholder="Nom"
                     className="contact_input"
-            />
-        </div>
+                    required
+                    aria-required="true"
+                    value={lastName}
+                    onChange={e => setLastName(e.target.value)}
+                />
+            </div>
 
-        <div>
-            <label htmlFor="email" className="sr-only">Email</label>
-            <input
-                id="email"
-                name="email"
-                type="email"
-                placeholder="Email"
-                className="contact_input"
-                required
-                aria-required="true"
-            />
-        </div>
+            <div>
+                <label htmlFor="firstname" className="sr-only">Prénom</label>
+                <input
+                    id="firstname"
+                    type="text"
+                    placeholder="Prénom"
+                    className="contact_input"
+                    required
+                    aria-required="true"
+                    value={firstName}
+                    onChange={e => setFirstName(e.target.value)}
+                />
+            </div>
 
-        <div className="md:col-span-2">
-            <label htmlFor="message" className="sr-only">Message</label>
-            <textarea
-                id="message"
-                name="message"
-                placeholder="Message"
-                className="contact_input"
-                required
-                aria-required="true"
-            />
-        </div>
+            <div>
+                <label htmlFor="email" className="sr-only">Email</label>
+                <input
+                    id="email"
+                    type="email"
+                    placeholder="Email"
+                    className="contact_input"
+                    required
+                    aria-required="true"
+                    value={email}
+                    onChange={e => setEmail(e.target.value)}
+                />
+            </div>
 
-        <div className="md:col-span-2 flex justify-center">
-            <button type="submit" className="secondary_button">
-                Envoyer
-            </button>
-        </div>
-    </form>
-  )
+            <div>
+                <label htmlFor="subject" className="sr-only">Sujet</label>
+                <input
+                    id="subject"
+                    type="text"
+                    placeholder="Sujet"
+                    className="contact_input"
+                    required
+                    aria-required="true"
+                    value={subject}
+                    onChange={e => setSubject(e.target.value)}
+                />
+            </div>
+
+            <div className="md:col-span-2">
+                <label htmlFor="message" className="sr-only">Message</label>
+                <textarea
+                    id="message"
+                    placeholder="Message"
+                    className="contact_input"
+                    required
+                    aria-required="true"
+                    value={message}
+                    onChange={e => setMessage(e.target.value)}
+                />
+            </div>
+
+            <div className="md:col-span-2 flex justify-center">
+                <button
+                    type="submit"
+                    disabled={loading}
+                    className="secondary_button disabled:opacity-50"
+                >
+                    {loading ? "Envoi..." : "Envoyer"}
+                </button>
+            </div>
+        </form>
+    )
 }
