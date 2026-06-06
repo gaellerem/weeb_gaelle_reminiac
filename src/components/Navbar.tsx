@@ -72,9 +72,9 @@ export default function Navbar() {
                     <div className="hidden md:flex items-center gap-16">
                         {user ? (
                             <>
-                                <span className="font-semibold">
+                                <Link to="/dashboard" className="font-semibold hover:text-secondary transition">
                                     {user.first_name ? `${user.first_name} ${user.last_name ?? ""}`.trim() : user.email}
-                                </span>
+                                </Link>
                                 <button type="button" onClick={handleLogout} className="secondary_button py-12 px-28">
                                     Déconnexion
                                 </button>
@@ -89,7 +89,7 @@ export default function Navbar() {
                     <button
                         type="button"
                         ref={buttonRef}
-                        className="md:hidden secondary_button"
+                        className="md:hidden secondary_button px-4 py-2"
                         aria-expanded={isOpen}
                         aria-controls="mobile-menu"
                         onClick={toggleMenu}
@@ -115,9 +115,13 @@ export default function Navbar() {
 
                         {user ? (
                             <div className="flex flex-col gap-12 items-end w-full">
-                                <span className="font-semibold text-right">
+                                <Link
+                                    to="/dashboard"
+                                    className="font-semibold text-right hover:text-secondary transition"
+                                    onClick={() => setIsOpen(false)}
+                                >
                                     {user.first_name ? `${user.first_name} ${user.last_name ?? ""}`.trim() : user.email}
-                                </span>
+                                </Link>
                                 <button
                                     type="button"
                                     className="secondary_button py-12 px-28 w-fit"

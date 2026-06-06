@@ -61,14 +61,14 @@ export default function ArticleForm({
                     <div className="flex gap-16 justify-end">
                         <button
                             onClick={onCancel}
-                            className="secondary_button py-12 px-28 text-white/60"
+                            className="btn btn-red py-2 px-5 text-white/60"
                         >
                             Annuler
                         </button>
                         <button
                             onClick={onSubmit}
                             disabled={saving}
-                            className="secondary_button py-12 px-28 disabled:opacity-50"
+                            className="btn btn-green py-2 px-5 disabled:opacity-50"
                         >
                             {saving ? savingLabel : submitLabel}
                         </button>

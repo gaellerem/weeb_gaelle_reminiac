@@ -96,13 +96,13 @@ export default function BlogDetail() {
                             <div className="flex gap-16 justify-end">
                                 <button
                                     onClick={() => navigate(`/blog/${article.slug}/edit`)}
-                                    className="secondary_button py-12 px-28"
+                                    className="btn btn-amber py-2 px-5"
                                 >
                                     Modifier
                                 </button>
                                 <button
                                     onClick={() => setDeleteOpen(true)}
-                                    className="secondary_button py-12 px-28 text-red-400 border-red-400/30 hover:border-red-400"
+                                    className="btn py-2 px-5 btn-red"
                                 >
                                     Supprimer
                                 </button>

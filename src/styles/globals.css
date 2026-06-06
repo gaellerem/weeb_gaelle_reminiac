@@ -66,24 +66,103 @@ h1, h2 {
     @apply px-8 py-12 rounded-xl font-medium;
 }
 
+.btn {
+    @apply text-white rounded-lg  transition;
+}
+
 .secondary_button {
-    @apply px-30 py-16 bg-secondary text-white rounded-lg hover:bg-secondary/50 hover:text-tertiary transition ;
+    @apply bg-secondary text-white rounded-lg hover:bg-secondary/50 hover:text-tertiary transition ;
 }
 
-.transparent_button {
-    @apply px-30 py-16 bg-transparent border border-white text-white rounded-lg hover:border-tertiary hover:text-tertiary transition ;
+.btn-green {
+    @apply border border-green-500/40 bg-green-500/10 text-green-400 hover:bg-green-500/20 hover:border-green-500/60;
 }
 
-.hero_button {
-    @apply text-xl font-medium py-16;
+.btn-amber {
+    @apply border border-amber-500/40 bg-amber-500/10 text-amber-400 hover:bg-amber-500/20 hover:border-amber-500/60;
+}
+
+.btn-red {
+    @apply border border-red-500/40 bg-red-500/10 text-red-400 hover:bg-red-500/20 hover:border-red-500/60;
+}
+
+.btn-border-white {
+    @apply border border-white hover:border-tertiary;
 }
 
 .jam_icon {
     @apply text-2xl transition-transform duration-200 hover:scale-120 hover:text-secondary;
 }
 
-.contact_input {
-    @apply text-white w-full text-center text-2xl pb-2 placeholder-tertiary border-b border-b-tertiary
+.input {
+    @apply text-white w-full text-center pb-2 placeholder-tertiary border-b border-b-tertiary
             hover:border-b-secondary hover:placeholder-secondary
             focus:outline-none focus:ring-2 focus:ring-secondary transition focus:border-none ;
+}
+
+.toggle {
+    @apply px-4 py-2 rounded-3xl flex items-center gap-1;
+}
+
+.admin-tabs {
+    @apply w-full;
+}
+
+.admin-tabs-list {
+    @apply inline-flex items-center gap-1 p-1 mb-8 rounded-xl border border-white/10 bg-white/5;
+}
+
+.admin-tab {
+    @apply px-5 py-3 rounded-lg text-sm font-semibold text-white/60 cursor-pointer transition-all duration-200 hover:text-white;
+}
+
+.admin-tab[data-active] {
+    @apply text-white bg-bluegray-400 shadow-sm;
+}
+
+.admin-table-div {
+    @apply overflow-hidden rounded-xl border border-white/10 bg-white/5;
+}
+
+.admin-table {
+    @apply w-full border-collapse text-left;
+}
+
+.admin-table-head {
+    @apply bg-white/5;
+}
+
+.admin-table-th {
+    @apply p-4 font-semibold text-white/80;
+}
+
+.admin-table-td {
+    @apply p-4;
+}
+
+.admin-table-row {
+    @apply border-t border-white/10 hover:bg-white/3;
+}
+
+.admin-actions {
+    @apply flex justify-end gap-3;
+}
+
+.admin-btn {
+    @apply rounded-xl px-3 py-1 text-sm transition-colors;
+}
+
+
+
+
+.admin-badge {
+    @apply rounded-full px-3 py-1 text-xs font-semibold w-full;
+}
+
+.admin-badge-active {
+    @apply bg-green-500/10 text-green-400;
+}
+
+.admin-badge-pending {
+    @apply bg-amber-500/10 text-amber-400;
 }

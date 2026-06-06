@@ -30,13 +30,13 @@ export default function Login() {
     };
     return (
         <PageLayout>
-        <section className="flex flex-col items-center gap-32">
+        <section className="flex flex-col items-center gap-32 text-xl">
             <form className="flex flex-col gap-32 items-center max-w-md px-4" onSubmit={handleLogin}>
                 <div className="w-full">
                     <label htmlFor="email" className="sr-only">Email</label>
                     <input 
                         id="email"
-                        className="contact_input"
+                        className="input"
                         type="email"
                         placeholder="Email"
                         required
@@ -48,7 +48,7 @@ export default function Login() {
                     <label htmlFor="password" className="sr-only">Mot de passe</label>
                     <input 
                         id="password"
-                        className="contact_input"
+                        className="input"
                         type="password"
                         placeholder="Mot de passe"
                         required
@@ -61,7 +61,7 @@ export default function Login() {
                 </button>
                 <Link to="/forgot-password" className="font-semibold text-sm hover:text-secondary transition">Mot de passe oublié ?</Link>
 
-                <p className="text-xs text-white/70">
+                <p className="text-sm text-white/70">
                     Vous n'avez pas de compte ? Vous pouvez en {" "}
                     <Link to="/register" className="font-semibold underline decoration-white hover:decoration-secondary hover:text-secondary transition">
                     créer un
