@@ -5,10 +5,38 @@ Plateforme blog full-stack avec authentification JWT, gestion des articles et fo
 ## Stack
 
 - **Frontend** : React + TypeScript + Vite + Tailwind CSS v4
-- **Routing** : React Router v7
+- **Routing** : React Router
 - **HTTP** : Axios (double instance public/privée)
-- **UI** : Base UI (toasts, dialogs)
+- **UI** : Base UI (tabs, toasts, dialogs)
 - **Backend** : Django REST Framework (repo séparé)
+
+## Fonctionnalités
+
+### Articles
+
+- Consultation publique des articles
+- Création d'article (utilisateur connecté)
+- Modification de ses propres articles
+- Suppression de ses propres articles
+- Gestion complète des articles pour les administrateurs
+
+### Authentification
+
+- Inscription
+- Connexion JWT
+- Refresh automatique du token
+- Validation manuelle des comptes par un administrateur
+
+### Contact
+
+- Envoi de messages via formulaire de contact
+
+### Administration
+
+- Gestion des utilisateurs
+- Validation des comptes
+- Désactivation des comptes
+- Gestion globale des articles
 
 ## Prérequis
 
@@ -39,6 +67,7 @@ src/
 │   └── client.ts          # Instances Axios, endpoints, gestion des erreurs
 ├── components/
 │   ├── articles/          # ArticleCard, ArticleForm, ArticlesList
+│   ├── admin/             # ArticlesTable, UsersTable
 │   ├── home/              # Sections de la page d'accueil
 │   ├── footer/            # Footer
 │   ├── ConfirmDialog.tsx  # Dialog de confirmation réutilisable
@@ -74,6 +103,12 @@ L'authentification repose sur des JWT stockés en `sessionStorage`. Deux instanc
 - `api` — requêtes publiques (lecture articles, login, register, contact)
 - `privateApi` — requêtes authentifiées avec token Bearer + refresh automatique
 
+Lors de l'inscription, les comptes sont créés avec `is_active=false`.
+
+Un administrateur doit valider le compte avant que l'utilisateur puisse se connecter.
+
+Si un utilisateur tente de se connecter avant validation, un message explicite lui est affiché.
+
 ## Routes
 
 | Path | Accès | Description |
@@ -82,10 +117,60 @@ L'authentification repose sur des JWT stockés en `sessionStorage`. Deux instanc
 | `/blog` | Public | Liste des articles |
 | `/blog/:slug` | Public | Détail d'un article |
 | `/blog/new` | Connecté | Créer un article |
-| `/blog/:slug/edit` | Propriétaire | Modifier un article |
+| `/blog/:slug/edit` | Propriétaire ou admin | Modifier un article |
 | `/contact` | Public | Formulaire de contact |
 | `/login` | Public | Connexion |
 | `/register` | Public | Inscription |
 | `/forgot-password` | Public | Demande de reset password |
 | `/reset-password` | Public | Réinitialisation du mot de passe |
 | `/dashboard` | Connecté | Dashboard utilisateur |
+| `/dashboard` | Admin | Administration |
+
+## Administration
+
+Les utilisateurs avec `is_staff=true` disposent d'un mode administration accessible depuis le dashboard.
+
+Fonctionnalités :
+
+### Gestion des utilisateurs
+
+- Liste complète des utilisateurs
+- Affichage du statut :
+  - Validé
+  - En attente
+- Activation d'un compte
+- Désactivation d'un compte
+
+### Gestion des articles
+
+- Liste complète des articles
+- Modification de n'importe quel article
+- Suppression de n'importe quel article
+- Confirmation avant suppression
+
+## Gestion des erreurs
+
+L'application centralise la gestion des erreurs via Axios et des notifications Toast.
+
+Exemples :
+
+- Session expirée
+- Identifiants invalides
+- Compte en attente de validation
+- Erreurs réseau
+- Erreurs de création/modification/suppression
+
+## Backend
+
+Le backend Django REST Framework est maintenu dans un dépôt séparé.
+
+Il expose :
+
+- Authentification JWT
+- Gestion des utilisateurs
+- Gestion des articles
+- Administration
+- Contact
+- Réinitialisation de mot de passe
+
+Le frontend communique exclusivement via l'API REST.
