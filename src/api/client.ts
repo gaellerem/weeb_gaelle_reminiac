@@ -4,14 +4,14 @@ import type { User } from "../models/users";
 
 // Instance publique — pas de token (articles en lecture, login, register)
 export const api = axios.create({
-    baseURL: "http://localhost:8000/",
+    baseURL: `${import.meta.env.VITE_API_URL}`,
     withCredentials: true,
     headers: { "Content-Type": "application/json" }
 })
 
 // Instance privée — token JWT automatique (actions authentifiées)
 export const privateApi = axios.create({
-    baseURL: "http://localhost:8000/",
+    baseURL: `${import.meta.env.VITE_API_URL}`,
     withCredentials: true,
     headers: { "Content-Type": "application/json" }
 })

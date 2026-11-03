@@ -26,7 +26,7 @@ export default function ForgotPassword() {
     return (
         <PageLayout>
             <section className="flex flex-col items-center gap-32">
-                <form className="flex flex-col gap-32 items-center max-w-md px-4" onSubmit={handleSubmit}>
+                <form className="flex w-full max-w-md flex-col items-center gap-32 px-4" onSubmit={handleSubmit}>
                     <div className="flex flex-col gap-12 text-center">
                         <h1 className="text-4xl font-extrabold">Mot de passe oublié</h1>
                         <p className="text-white/60 text-sm">
@@ -38,7 +38,7 @@ export default function ForgotPassword() {
                         <label htmlFor="email" className="sr-only">Email</label>
                         <input
                             id="email"
-                            className="contact_input"
+                            className="input"
                             type="email"
                             placeholder="Email"
                             required
