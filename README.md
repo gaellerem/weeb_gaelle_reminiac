@@ -123,8 +123,7 @@ Si un utilisateur tente de se connecter avant validation, un message explicite l
 | `/register` | Public | Inscription |
 | `/forgot-password` | Public | Demande de reset password |
 | `/reset-password` | Public | Réinitialisation du mot de passe |
-| `/dashboard` | Connecté | Dashboard utilisateur |
-| `/dashboard` | Admin | Administration |
+| `/dashboard` | Connecté / Admin | Dashboard utilisateur / Administration |
 
 ## Administration
 
