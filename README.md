@@ -23,7 +23,7 @@ Plateforme blog full-stack avec authentification JWT, gestion des articles et fo
 ### Authentification
 
 - Inscription
-- Connexion JWT
+- Connexion JWT avec double authentification TOTP facultative
 - Refresh automatique du token
 - Validation manuelle des comptes par un administrateur
 
@@ -74,6 +74,7 @@ src/
 │   ├── ContactForm.tsx    # Formulaire de contact
 │   ├── Navbar.tsx         # Navbar responsive avec état auth
 │   ├── PrivateRoute.tsx   # Protection des routes authentifiées
+│   ├── TwoFactorSettings.tsx # Configuration de la double authentification
 │   └── ToastProvider.tsx  # Système de toasts (Base UI)
 ├── contexts/
 │   └── AuthContext.tsx    # État utilisateur global
@@ -108,6 +109,12 @@ Lors de l'inscription, les comptes sont créés avec `is_active=false`.
 Un administrateur doit valider le compte avant que l'utilisateur puisse se connecter.
 
 Si un utilisateur tente de se connecter avant validation, un message explicite lui est affiché.
+
+La double authentification peut être activée ou désactivée depuis le tableau de bord.
+Elle utilise une application compatible TOTP (par exemple Google Authenticator,
+Microsoft Authenticator, 1Password ou Authy). Lors de l'activation, l'utilisateur
+scanne un QR code puis confirme la configuration avec un code à 6 chiffres.
+À chaque connexion suivante, le mot de passe est suivi d'une vérification par code.
 
 ## Routes
 

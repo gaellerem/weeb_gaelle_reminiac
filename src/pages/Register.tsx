@@ -14,6 +14,9 @@ export default function Register() {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [confirmPassword, setConfirmPassword] = useState("");
+    const [submitting, setSubmitting] = useState(false);
+    const [registered, setRegistered] = useState(false);
+    const [formError, setFormError] = useState("");
 
     useEffect(() => {
         if (isAuthenticated) {
@@ -23,27 +26,46 @@ export default function Register() {
 
     const handleRegister = async (event: FormEvent<HTMLFormElement>) => {
         event.preventDefault();
+        if (submitting) return;
+
+        setFormError("");
         if (password !== confirmPassword) {
-            toast.error("Les mots de passe ne correspondent pas.");
+            setFormError("Les mots de passe ne correspondent pas.");
             return;
         }
         if (password.length < 12) {
-            toast.error("Le mot de passe doit contenir au moins 12 caractères.")
+            setFormError("Le mot de passe doit contenir au moins 12 caractères.");
             return
         }
+
+        setSubmitting(true);
         try {
             await register({ first_name: name, last_name: surname, email, password, password_confirm: confirmPassword });
-            toast.success("Inscription réussie ! Votre compte est en attente de validation par un administrateur.")
-            navigate("/login")
+            setRegistered(true);
         } catch (error: any) {
-            toast.error(error.message);
+            const message = error.message || "L'inscription a échoué. Veuillez réessayer.";
+            setFormError(message);
+            toast.error(message);
+        } finally {
+            setSubmitting(false);
         }
     }
 
     return (
         <PageLayout>
             <section className="flex flex-col items-center gap-32 text-xl">
-                <form className="flex flex-col gap-32 items-center max-w-md px-4" onSubmit={handleRegister}>
+                {registered ? (
+                    <div className="flex flex-col items-center gap-16 max-w-md px-4 text-center" role="status" aria-live="polite">
+                        <h1 className="text-3xl font-extrabold">Inscription réussie</h1>
+                        <p className="text-base text-white/70">
+                            Votre compte a été créé et doit être validé par un administrateur avant que vous puissiez vous connecter.
+                        </p>
+                        <Link to="/login" className="secondary_button px-18 py-12">
+                            Aller à la connexion
+                        </Link>
+                    </div>
+                ) : (
+                <form className="flex flex-col gap-32 items-center max-w-md px-4" onSubmit={handleRegister} aria-busy={submitting}>
                     <div className="w-full">
                         <label htmlFor="name" className="sr-only">Prénom</label>
                         <input
@@ -106,8 +128,13 @@ export default function Register() {
                             />
                         </div>
                     </div>
-                    <button className="secondary_button px-18 py-12" type="submit">
-                        S'inscrire
+                    {formError && (
+                        <p className="w-full text-sm text-red-400" role="alert">
+                            {formError}
+                        </p>
+                    )}
+                    <button className="secondary_button px-18 py-12" type="submit" disabled={submitting}>
+                        {submitting ? "Inscription..." : "S'inscrire"}
                     </button>
                     <p className="text-sm text-white/70">
                         Vous avez déjà un compte ? Vous pouvez vous{" "}
@@ -116,6 +143,7 @@ export default function Register() {
                         </Link>
                     </p>
                 </form>
+                )}
             </section>
         </PageLayout>
     )

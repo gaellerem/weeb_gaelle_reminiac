@@ -100,6 +100,23 @@ export interface UserResponse {
     access: string;
 }
 
+export interface TwoFactorChallengeResponse {
+    requires_2fa: true;
+    two_factor_token: string;
+    user: User;
+}
+
+export interface TwoFactorSetupResponse {
+    message: string;
+    secret: string;
+    provisioning_uri: string;
+}
+
+export interface TwoFactorActionResponse {
+    message: string;
+    user: User;
+}
+
 export interface RegisterData {
     first_name: string
     last_name: string
@@ -121,11 +138,19 @@ export const register = async (data: RegisterData) => {
     }
 };
 
-export const login = async (data: LoginData) => {
+export const login = async (
+    data: LoginData
+): Promise<UserResponse | TwoFactorChallengeResponse> => {
     try {
-        const response = await handleRequest<UserResponse>(
+        const response = await handleRequest<UserResponse | TwoFactorChallengeResponse>(
             api.post("users/login/", data)
         );
+
+        if (!("access" in response)) {
+            sessionStorage.removeItem("access");
+            sessionStorage.removeItem("user");
+            return response;
+        }
 
         sessionStorage.setItem("access", response.access);
         sessionStorage.setItem("user", JSON.stringify(response.user));
@@ -135,6 +160,32 @@ export const login = async (data: LoginData) => {
         throw new Error(error.data?.message || "Email ou mot de passe incorrect.");
     }
 };
+
+export const verifyTwoFactorLogin = (
+    twoFactorToken: string,
+    code: string
+) =>
+    handleRequest<UserResponse>(
+        api.post("users/2fa/verify-login/", {
+            two_factor_token: twoFactorToken,
+            code,
+        })
+    );
+
+export const setupTwoFactor = () =>
+    handleRequest<TwoFactorSetupResponse>(
+        privateApi.post("users/2fa/setup/")
+    );
+
+export const confirmTwoFactor = (code: string) =>
+    handleRequest<TwoFactorActionResponse>(
+        privateApi.post("users/2fa/confirm/", { code })
+    );
+
+export const disableTwoFactor = (code: string) =>
+    handleRequest<TwoFactorActionResponse>(
+        privateApi.post("users/2fa/disable/", { code })
+    );
 
 export const logout = async () => {
     const response = await handleRequest(api.post("users/logout/", {}));
