@@ -2,6 +2,7 @@ import { Link, NavLink, useNavigate } from "react-router-dom"
 import { useState, useRef, useEffect } from "react"
 import { FiMenu } from 'react-icons/fi'
 import { useAuth } from "../contexts/AuthContext"
+import { useToast } from "../hooks/useToast"
 
 const navLinks = [
     { to: "/blog", label: "Blog", end: true },
@@ -10,7 +11,9 @@ const navLinks = [
 
 export default function Navbar() {
     const [isOpen, setIsOpen] = useState(false)
+    const [isLoggingOut, setIsLoggingOut] = useState(false)
     const { user, logout } = useAuth()
+    const toast = useToast()
     const buttonRef = useRef<HTMLButtonElement>(null)
     const menuRef = useRef<HTMLDivElement>(null)
 
@@ -42,8 +45,18 @@ export default function Navbar() {
     }
 
     const handleLogout = async () => {
-        await logout()
-        navigate("/login")
+        if (isLoggingOut) return
+
+        setIsLoggingOut(true)
+        try {
+            await logout()
+            toast.success("Vous êtes déconnecté(e).")
+            navigate("/login")
+        } catch (error) {
+            toast.error(error instanceof Error ? error.message : "La déconnexion a échoué. Veuillez réessayer.")
+        } finally {
+            setIsLoggingOut(false)
+        }
     }
 
     return (
@@ -75,8 +88,8 @@ export default function Navbar() {
                                 <Link to="/dashboard" className="font-semibold hover:text-secondary transition">
                                     {user.first_name ? `${user.first_name} ${user.last_name ?? ""}`.trim() : user.email}
                                 </Link>
-                                <button type="button" onClick={handleLogout} className="secondary_button py-12 px-28">
-                                    Déconnexion
+                                <button type="button" onClick={handleLogout} className="secondary_button py-12 px-28" disabled={isLoggingOut} aria-busy={isLoggingOut}>
+                                    {isLoggingOut ? "Déconnexion..." : "Déconnexion"}
                                 </button>
                             </>
                         ) : (
@@ -125,12 +138,14 @@ export default function Navbar() {
                                 <button
                                     type="button"
                                     className="secondary_button py-12 px-28 w-fit"
+                                    disabled={isLoggingOut}
+                                    aria-busy={isLoggingOut}
                                     onClick={() => {
                                         setIsOpen(false)
                                         handleLogout()
                                     }}
                                 >
-                                    Déconnexion
+                                    {isLoggingOut ? "Déconnexion..." : "Déconnexion"}
                                 </button>
                             </div>
                         ) : (

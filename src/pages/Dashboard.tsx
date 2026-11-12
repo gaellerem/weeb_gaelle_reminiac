@@ -11,6 +11,7 @@ import ArticleCard from "../components/articles/ArticleCard"
 import UsersTable from "../components/admin/UsersTable"
 import ArticlesTable from "../components/admin/ArticlesTable"
 import ConfirmDialog from "../components/ConfirmDialog"
+import TwoFactorSettings from "../components/TwoFactorSettings"
 
 export default function Dashboard() {
     const { user } = useAuth()
@@ -160,6 +161,7 @@ export default function Dashboard() {
                 </div>
                 {/* Mode profil */}
                 {!adminMode && (
+                    <>
                     <div className={`flex flex-col lg:flex-row gap-48 items-start`}>
                     {/* Colonne gauche — Profil */}
                     <div className="flex flex-col gap-16 lg:w-72 shrink-0">
@@ -202,6 +204,8 @@ export default function Dashboard() {
                     </div>
 
                     </div>
+                    <TwoFactorSettings />
+                    </>
                 )}
                 {/* Mode administration */}
                 {adminMode && (

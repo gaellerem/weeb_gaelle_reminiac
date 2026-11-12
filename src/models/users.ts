@@ -6,6 +6,7 @@ export interface User {
 	is_active?: boolean;
 	is_staff?: boolean;
 	is_superuser?: boolean;
+	is_two_factor_enabled?: boolean;
 	date_joined?: string; // ISO 8601 date string
 }
 
